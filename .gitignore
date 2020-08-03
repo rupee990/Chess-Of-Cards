@@ -1,0 +1,8 @@
+
+*.ipch
+*.db
+.vs/CardChess/v15/.suo
+.vs/CardChess/v16/.suo
+Binaries/
+Intermediate/
+Saved/
