@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "CCPawn.h"
-#include "Block.h"
+#include "BoardSpace.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/PlayerController.h"
@@ -61,9 +61,9 @@ void ACardChessPawn::OnResetVR()
 
 void ACardChessPawn::TriggerClick()
 {
-	if (CurrentBlockFocus)
+	if (CurrentSpaceFocus)
 	{
-		CurrentBlockFocus->HandleClicked();
+		CurrentSpaceFocus->HandleOverlap();
 	}
 }
 
@@ -78,23 +78,23 @@ void ACardChessPawn::TraceForBlock(const FVector& Start, const FVector& End, boo
 	}
 	if (HitResult.Actor.IsValid())
 	{
-		ACardChessBlock* HitBlock = Cast<ACardChessBlock>(HitResult.Actor.Get());
-		if (CurrentBlockFocus != HitBlock)
+		ABoardSpace* HitBlock = Cast<ABoardSpace>(HitResult.Actor.Get());
+		if (CurrentSpaceFocus != HitBlock)
 		{
-			if (CurrentBlockFocus)
+			if (CurrentSpaceFocus)
 			{
-				CurrentBlockFocus->Highlight(false);
+				CurrentSpaceFocus->Highlight(false);
 			}
 			if (HitBlock)
 			{
 				HitBlock->Highlight(true);
 			}
-			CurrentBlockFocus = HitBlock;
+			CurrentSpaceFocus = HitBlock;
 		}
 	}
-	else if (CurrentBlockFocus)
+	else if (CurrentSpaceFocus)
 	{
-		CurrentBlockFocus->Highlight(false);
-		CurrentBlockFocus = nullptr;
+		CurrentSpaceFocus->Highlight(false);
+		CurrentSpaceFocus = nullptr;
 	}
 }
