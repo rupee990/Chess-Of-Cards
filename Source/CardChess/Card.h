@@ -60,4 +60,7 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACard)
     FDataTableRowHandle m_RowHandle;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ACard)
+    float m_DistanceFromCamera = 100.0f;
+
 };
